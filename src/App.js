@@ -1,48 +1,58 @@
-import React, { useState, useEffect } from 'react'
-
 import './App.css';
+import React, { useState, useEffect } from 'react'
 import Navbar from './componenets/Navbar';
-import Show from './componenets/Show';
-import Summary from './componenets/Summary';
+//import {Link, BrowserRouter , Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import {
-	BrowserRouter,
-	Routes,
-	Route,
-	
-} from "react-router-dom";
+import Display from './componenets/Display';
+import Login from './componenets/Login';
+import Signup from './componenets/Signup';
+import Courses from './componenets/Courses';
+import Pleaselogin from './componenets/Pleaselogin';
 
 function App() {
-	const [shows, setshows] = useState([]);
+	 const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+	// const handleChildData = (dataFromChild) => {
+	// 	setIsLoggedIn(true);
+	//   };
 	
-	useEffect(() => {
-		const updateshows = async () => {
-			const url = "https://api.tvmaze.com/search/shows?q=all";
-			const data = await fetch(url);
-			const parseddata = await data.json();
-			
-			// parseddata.pop()
-	// parseddata.forEach(element => {
-	// 	console.log(element.show.summary);
+  return (
+	<>
+	 <Router>
+      <div>
 		
-	// });
-			setshows(parseddata);
-		}
+        {/* <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav> */}
+<Navbar/>
+        <Route exact path="/" component={Display} />
+        <Route path="/signup" component={Signup} />
+		<Route path="/login" component={Login} />
+		
+		 {/* <Route
+        path="/login"
+        render={(props) => <Login {...props} sendDataToParent={handleChildData} />}
+      /> */}
+		{/* {   isLoggedIn ? <Route path="/courses" component={Courses} /> : <Route path="/courses" component={Pleaselogin}/>}  */}
+		<Route path="/courses" component={Courses } />
+      </div>
+    </Router>
 
-		updateshows();
-
-	}, []);
-
-	return (
-		<BrowserRouter>
-			<Navbar />
-			<Routes>
-				<Route path="/" element={<Show   shows={shows}/>} />
-				<Route path="/home" element={<Show  shows={shows}/>} />
-				<Route path="/summary" element={<Summary data={shows} />} />
-			</Routes>
-		</BrowserRouter>
-	);
+   
+	
+	
+	</>
+  );
 }
 
 export default App;
