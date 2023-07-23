@@ -4,7 +4,7 @@ export default function Display() {
   const [randomImageUrl, setRandomImageUrl] = useState('');
 
   useEffect(() => {
-    const apiKey = '38417398-353b6532b754cec48c6982d2a';
+    const apiKey = '';
     const query = 'ocean+sunset+waterfall';
 
     fetch(`https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo`)
